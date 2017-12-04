@@ -1,0 +1,14 @@
+= Neo4j Graph Algorithms Jupyter Notebooks
+
+
+
+```
+virtualenv a
+pip install -r requirements.txt
+```
+
+Launch the Jupyter notebook:
+
+```
+jupyter notebook
+```
