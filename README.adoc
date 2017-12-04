@@ -12,8 +12,12 @@ virtualenv a
 pip install -r requirements.txt
 ```
 
-Launch the Jupyter server:
+We're now ready to launch the Jupyter server.
+
+The notebooks assume that there's a Neo4j server running at `localhost:7687` with username `neo4j` and password `neo`.
+You can override these values with environment variables.
+
 
 ```
-jupyter notebook
+NEO4J_HOST="bolt://localhost:7687" NEO4J_USER="neo4j" NEO4J_PASSWORD="neo" jupyter notebook
 ```
