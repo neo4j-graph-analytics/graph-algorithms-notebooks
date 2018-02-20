@@ -40,9 +40,11 @@ if len(sys.argv) >= 5:
     stream_graph_tag = sys.argv[4]
 
 
-text = """\
+heading_text = """\
 # {0}
 {1}
+
+First we'll import the Neo4j driver and Pandas libraries:
 """.format(algorithm_name, algorithm_description)
 
 imports = """\
@@ -50,15 +52,21 @@ from neo4j.v1 import GraphDatabase, basic_auth
 import pandas as pd
 import os"""
 
+driver_setup_text = """\
+Next let's create an instance of the Neo4j driver which we'll use to execute our queries.
+"""
+
 driver_setup = """\
 host = os.environ.get("NEO4J_HOST", "bolt://localhost") 
 user = os.environ.get("NEO4J_USER", "neo4j")
 password = os.environ.get("NEO4J_PASSWORD", "neo")
 driver = GraphDatabase.driver(host, auth=basic_auth(user, password))"""
 
-create_graph_content = find_tag(cypher_file, "create-sample-graph")
-streaming_query_content = find_tag(cypher_file, stream_graph_tag)
+create_graph_text = """\
+Now let's create a sample graph that we'll run the algorithm against.
+"""
 
+create_graph_content = find_tag(cypher_file, "create-sample-graph")
 create_graph = """\
 create_graph_query = '''\
 
@@ -69,6 +77,11 @@ with driver.session() as session:
     result = session.write_transaction(lambda tx: tx.run(create_graph_query))
     print("Stats: " + str(result.consume().metadata.get("stats", {})))""" % create_graph_content
 
+streaming_graph_text = """\
+Finally we can run the algorithm by executing the following query:
+"""
+
+streaming_query_content = find_tag(cypher_file, stream_graph_tag)
 run_algorithm = '''\
 streaming_query = """\
 
@@ -82,10 +95,13 @@ with driver.session() as session:
 df''' % streaming_query_content
 
 nb = nbf.v4.new_notebook()
-nb['cells'] = [nbf.v4.new_markdown_cell(text),
+nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),
                nbf.v4.new_code_cell(imports),
+               nbf.v4.new_markdown_cell(driver_setup_text),
                nbf.v4.new_code_cell(driver_setup),
+               nbf.v4.new_markdown_cell(create_graph_text),
                nbf.v4.new_code_cell(create_graph),
+               nbf.v4.new_markdown_cell(streaming_graph_text),
                nbf.v4.new_code_cell(run_algorithm)]
 
 output_file = 'notebooks/{0}.ipynb'.format(algorithm_name.replace(" ", ""))
