@@ -1,0 +1,5 @@
+CALL algo.pageRank.stream('Page', 'LINKS', {iterations:20, dampingFactor:0.85})
+YIELD node, score
+RETURN node.name as page,score
+ORDER BY score DESC
+LIMIT 20
