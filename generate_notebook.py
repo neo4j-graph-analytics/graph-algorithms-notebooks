@@ -31,10 +31,14 @@ if len(sys.argv) < 4:
     print("Usage: python generate_notebook.py <Algorithm Name> <Description> <Cypher File>")
     sys.exit(1)
 
-
 algorithm_name = sys.argv[1]
 algorithm_description = find_tag(sys.argv[2], "introduction")
 cypher_file = sys.argv[3]
+
+stream_graph_tag = "stream-sample-graph"
+if len(sys.argv) >= 5:
+    stream_graph_tag = sys.argv[4]
+
 
 text = """\
 # {0}
@@ -53,7 +57,7 @@ password = os.environ.get("NEO4J_PASSWORD", "neo")
 driver = GraphDatabase.driver(host, auth=basic_auth(user, password))"""
 
 create_graph_content = find_tag(cypher_file, "create-sample-graph")
-streaming_query_content = find_tag(cypher_file, "stream-sample-graph")
+streaming_query_content = find_tag(cypher_file, stream_graph_tag)
 
 create_graph = """\
 create_graph_query = '''\
