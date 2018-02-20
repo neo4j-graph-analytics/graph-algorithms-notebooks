@@ -10,18 +10,22 @@ def find_tag(file, tag):
     with urlopen(file) as pagerank_file:
         for line in pagerank_file.readlines():
             line = line.decode("utf-8")
+
             if line.startswith("// tag::"):
                 groups = re.match("// tag::(.*)\[\]", line)
                 tag_name = groups[1]
+
                 if tag_name == tag:
                     found_tag = True
                     continue
+
             if line.startswith("// end::"):
                 groups = re.match("// end::(.*)\[\]", line)
                 tag_name = groups[1]
                 if tag_name == tag:
                     found_tag = False
                     continue
+
             if found_tag:
                 inner_text += "{0}".format(line)
     return inner_text.strip()
@@ -82,6 +86,7 @@ Finally we can run the algorithm by executing the following query:
 """
 
 streaming_query_content = find_tag(cypher_file, stream_graph_tag)
+
 run_algorithm = '''\
 streaming_query = """\
 

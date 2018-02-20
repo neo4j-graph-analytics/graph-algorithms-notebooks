@@ -34,6 +34,11 @@ python generate_notebook.py \
     "weighted-stream-sample-graph"
 
 python generate_notebook.py \
+    "Strongly Connected Components" \
+    "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/strongly-connected-components.adoc" \
+    "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/strongly-connected-components.cypher"
+
+python generate_notebook.py \
     "Louvain" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/louvain.adoc" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/louvain.cypher"
@@ -86,3 +91,6 @@ jupyter nbconvert --execute --inplace notebooks/AllPairsShortestPath.ipynb
 
 python empty.py
 jupyter nbconvert --execute --inplace notebooks/TriangleCounting.ipynb
+
+python empty.py
+jupyter nbconvert --execute --inplace notebooks/StronglyConnectedComponents.ipynb
