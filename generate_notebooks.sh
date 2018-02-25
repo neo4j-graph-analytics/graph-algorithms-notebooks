@@ -25,13 +25,15 @@ python generate_notebook.py \
     "Unweighted Connected Components" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/connected-components.adoc" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/connected-components.cypher" \
-    "unweighted-stream-sample-graph"
+    "unweighted-stream-sample-graph" \
+    "unweighted-stream-sample-graph-explanation"
 
 python generate_notebook.py \
     "Weighted Connected Components" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/connected-components.adoc" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/connected-components.cypher" \
-    "weighted-stream-sample-graph"
+    "weighted-stream-sample-graph" \
+    "weighted-stream-sample-graph-explanation"
 
 python generate_notebook.py \
     "Strongly Connected Components" \

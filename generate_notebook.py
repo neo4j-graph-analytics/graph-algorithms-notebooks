@@ -36,13 +36,18 @@ if len(sys.argv) < 4:
     sys.exit(1)
 
 algorithm_name = sys.argv[1]
-algorithm_description = find_tag(sys.argv[2], "introduction")
+algorithm_file = sys.argv[2]
 cypher_file = sys.argv[3]
+
+algorithm_description = find_tag(algorithm_file, "introduction")
 
 stream_graph_tag = "stream-sample-graph"
 if len(sys.argv) >= 5:
     stream_graph_tag = sys.argv[4]
 
+explanation_tag = "stream-sample-graph-explanation"
+if len(sys.argv) >= 6:
+    explanation_tag = sys.argv[5]
 
 heading_text = """\
 # {0}
@@ -99,6 +104,8 @@ with driver.session() as session:
 
 df''' % streaming_query_content
 
+streaming_graph_explanation_text = find_tag(algorithm_file, explanation_tag)
+
 nb = nbf.v4.new_notebook()
 nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),
                nbf.v4.new_code_cell(imports),
@@ -107,7 +114,8 @@ nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),
                nbf.v4.new_markdown_cell(create_graph_text),
                nbf.v4.new_code_cell(create_graph),
                nbf.v4.new_markdown_cell(streaming_graph_text),
-               nbf.v4.new_code_cell(run_algorithm)]
+               nbf.v4.new_code_cell(run_algorithm),
+               nbf.v4.new_markdown_cell(streaming_graph_explanation_text)]
 
 output_file = 'notebooks/{0}.ipynb'.format(algorithm_name.replace(" ", ""))
 
