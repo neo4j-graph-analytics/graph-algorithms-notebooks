@@ -59,40 +59,12 @@ python generate_notebook.py \
 
 python generate_notebook.py \
     "Triangle Counting" \
-    "https://github.com/neo4j-contrib/neo4j-graph-algorithms/blob/3.2/doc/asciidoc/triangleCount.adoc" \
+    "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/triangleCount.adoc" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/triangle-count.cypher" \
     "stream-triples"
 
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/PageRank.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/Louvain.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/BetweennessCentrality.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/ClosenessCentrality.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/UnweightedConnectedComponents.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/WeightedConnectedComponents.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/Louvain.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/SingleSourceShortestPath.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/AllPairsShortestPath.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/TriangleCounting.ipynb
-
-python empty.py
-jupyter nbconvert --execute --inplace notebooks/StronglyConnectedComponents.ipynb
+for file in `find notebooks -name "*.ipynb" -maxdepth 1`; do
+    echo $file
+    python empty.py
+    jupyter nbconvert --execute --inplace $file
+done
