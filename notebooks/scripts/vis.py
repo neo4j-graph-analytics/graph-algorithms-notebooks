@@ -70,4 +70,6 @@ def generate_vis(host, user, password, cypher):
     with open(filename, "w") as f:
         f.write(html)
 
+    print(filename)
+
     return IFrame(filename, width="100%", height="550px")

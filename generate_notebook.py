@@ -106,6 +106,25 @@ df''' % streaming_query_content
 
 streaming_graph_explanation_text = find_tag(algorithm_file, explanation_tag)
 
+expand_viz_cell = '''\
+%%html
+<style>
+.output_wrapper, .output {
+    height:auto !important;
+    max-height:600px;
+}
+.output_scroll {
+    box-shadow:none !important;
+    webkit-box-shadow:none !important;
+}
+</style>
+'''
+
+viz = '''\
+from scripts.vis import generate_vis
+generate_vis(host, user, password, "MATCH (p1:Page)-[r:LINKS]->(p2:Page) RETURN *")
+'''
+
 nb = nbf.v4.new_notebook()
 nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),
                nbf.v4.new_code_cell(imports),
@@ -115,7 +134,10 @@ nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),
                nbf.v4.new_code_cell(create_graph),
                nbf.v4.new_markdown_cell(streaming_graph_text),
                nbf.v4.new_code_cell(run_algorithm),
-               nbf.v4.new_markdown_cell(streaming_graph_explanation_text)]
+               nbf.v4.new_markdown_cell(streaming_graph_explanation_text),
+               # nbf.v4.new_code_cell(expand_viz_cell),
+               # nbf.v4.new_code_cell(viz)
+               ]
 
 output_file = 'notebooks/{0}.ipynb'.format(algorithm_name.replace(" ", ""))
 

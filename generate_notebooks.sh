@@ -49,13 +49,15 @@ python generate_notebook.py \
     "Single Source Shortest Path" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/single-shortest-path.adoc" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/single-shortest-path.cypher" \
-    "single-pair-stream-sample-graph"
+    "single-pair-stream-sample-graph" \
+    "single-pair-stream-sample-graph-explanation"
 
 python generate_notebook.py \
     "All Pairs Shortest Path" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/all-pairs-shortest-path.adoc" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/single-shortest-path.cypher" \
-    "all-pairs-sample-graph"
+    "all-pairs-sample-graph" \
+    "all-pairs-stream-sample-graph-explanation"
 
 python generate_notebook.py \
     "Triangle Counting" \
