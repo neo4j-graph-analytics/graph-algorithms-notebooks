@@ -1,21 +1,20 @@
-from IPython.display import IFrame
+from IPython.display import IFrame, HTML
 import json
 import uuid
 
 def generate_vis(host, user, password, cypher):
     html = """\
-    <!doctype html>
-    <html>
-        <head>
-            <title>Neovis.js Simple Example</title>
+<html>
+<head>
+    <title>Neovis.js Simple Example</title>
             <style type="text/css">
                 html, body {{
                     font: 16pt arial;
                 }}
 
                 #viz {{
-                    width: 100%;
-                    height: 500px;
+                    width: 300px;
+                    height: 400px;
                     font: 22pt arial;
                 }}
             </style>
@@ -52,15 +51,25 @@ def generate_vis(host, user, password, cypher):
                     }};
 
                     viz = new NeoVis.default(config);
-                    viz.render();
-                    console.log(viz);
+                    viz.render();                    
+                    viz.onVisualizationRendered(function(ctx) {{
+                        let imageSrc = document.getElementsByTagName("canvas")[0].toDataURL();
+                        console.log(imageSrc);
+                        document.getElementById("viz-image").src=imageSrc;
+                        document.getElementById("viz").style="display:none";
+                    }});
 
                 }}
             </script>
-        </head>
+
+         </head>
         <body onload="draw()">
             <div id="viz"></div>
+
+            <img id="viz-image" src="" height="300px" />
         </body>
+
+
     </html>
     """
     html = html.format(host = host, user=user, password=password, cypher=cypher)
@@ -70,6 +79,10 @@ def generate_vis(host, user, password, cypher):
     with open(filename, "w") as f:
         f.write(html)
 
-    print(filename)
+#     print(filename)
 
-    return IFrame(filename, width="100%", height="550px")
+#     return HTML(html)
+
+#     return HTML(html)
+    
+    return IFrame(filename, width="100%", height="320px")

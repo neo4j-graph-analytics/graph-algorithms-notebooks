@@ -135,8 +135,8 @@ nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),
                nbf.v4.new_markdown_cell(streaming_graph_text),
                nbf.v4.new_code_cell(run_algorithm),
                nbf.v4.new_markdown_cell(streaming_graph_explanation_text),
-               # nbf.v4.new_code_cell(expand_viz_cell),
-               # nbf.v4.new_code_cell(viz)
+               nbf.v4.new_code_cell(expand_viz_cell),
+               nbf.v4.new_code_cell(viz)
                ]
 
 output_file = 'notebooks/{0}.ipynb'.format(algorithm_name.replace(" ", ""))
