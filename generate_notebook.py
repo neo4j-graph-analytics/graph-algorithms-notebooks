@@ -120,10 +120,31 @@ expand_viz_cell = '''\
 </style>
 '''
 
+cypher_read_query = "MATCH (p1:Page)-[r:LINKS]->(p2:Page) RETURN *"
+
+labels_json = {
+    "Page": {
+        "caption": "name",
+        "size": "pagerank"
+    }
+}
+
+relationships_json = {
+    "LINKS": {
+        "thickness": "weight",
+        "caption": False
+    }
+}
+
 viz = '''\
 from scripts.vis import generate_vis
-generate_vis(host, user, password, "MATCH (p1:Page)-[r:LINKS]->(p2:Page) RETURN *")
-'''
+
+query = "%s"
+labels_json = %s
+relationships_json = %s
+
+generate_vis(host, user, password, query, labels_json, relationships_json)
+''' % (cypher_read_query, labels_json, relationships_json)
 
 nb = nbf.v4.new_notebook()
 nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),

@@ -2,7 +2,8 @@ from IPython.display import IFrame, HTML
 import json
 import uuid
 
-def generate_vis(host, user, password, cypher):
+
+def generate_vis(host, user, password, cypher, labels_json, relationships_json):
     html = """\
 <html>
 <head>
@@ -14,7 +15,7 @@ def generate_vis(host, user, password, cypher):
 
                 #viz {{
                     width: 300px;
-                    height: 400px;
+                    height: 350px;
                     font: 22pt arial;
                 }}
             </style>
@@ -35,18 +36,8 @@ def generate_vis(host, user, password, cypher):
                         server_url: "{host}",
                         server_user: "{user}",
                         server_password: "{password}",
-                        labels: {{
-                            "Page": {{
-                                "caption": "name",
-                                "size": "pagerank"
-                            }}
-                        }},
-                        relationships: {{
-                            "LINKS": {{
-                                "thickness": "weight",
-                                "caption": false
-                            }}
-                        }},
+                        labels: {labels},
+                        relationships: {relationships},
                         initial_cypher: "{cypher}"
                     }};
 
@@ -72,9 +63,18 @@ def generate_vis(host, user, password, cypher):
 
     </html>
     """
-    html = html.format(host = host, user=user, password=password, cypher=cypher)
-    unique_id = str(uuid.uuid4())
 
+    html = html.format(
+        host=host,
+        user=user,
+        password=password,
+        cypher=cypher,
+        labels = json.dumps(labels_json),
+        relationships=json.dumps(relationships_json)
+        # relationships=json.dumps(relationships).replace("{", "{{").replace("}", "}}")
+    )
+
+    unique_id = str(uuid.uuid4())
     filename = "figure/graph-{}.html".format(unique_id)
     with open(filename, "w") as f:
         f.write(html)
