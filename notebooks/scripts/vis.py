@@ -48,6 +48,12 @@ def generate_vis(host, user, password, cypher, labels_json, relationships_json):
                         console.log(imageSrc);
                         document.getElementById("viz-image").src=imageSrc;
                         document.getElementById("viz").style="display:none";
+                        
+                        let kernel = IPython.notebook.kernel;
+                        //let command = 'display(HTML('<img id="viz-image" width="300px" src="' + imageSrc + '" />';
+                        let command = "foo = 'bar'";
+                        kernel.execute(command);
+                        
                     }});
 
                 }}
