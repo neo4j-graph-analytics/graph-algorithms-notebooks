@@ -49,6 +49,10 @@ explanation_tag = "stream-sample-graph-explanation"
 if len(sys.argv) >= 6:
     explanation_tag = sys.argv[5]
 
+write_graph_tag = "write-sample-graph"
+if len(sys.argv) >= 7:
+    write_graph_tag = sys.argv[6]
+
 heading_text = """\
 # {0}
 {1}
@@ -105,6 +109,21 @@ with driver.session() as session:
 df''' % streaming_query_content
 
 streaming_graph_explanation_text = find_tag(algorithm_file, explanation_tag)
+
+write_graph_text = '''We can also call a version of the algorithm that will store the result as a property on a
+node. This is useful if we want to run future queries that use the result.'''
+
+write_query_content = find_tag(cypher_file, write_graph_tag)
+
+write_graph = '''\
+write_query = """\
+
+%s
+"""
+
+with driver.session() as session:
+    session.write_transaction(lambda tx: tx.run(write_query))''' % write_query_content
+
 
 viz_intro_text = '''## Graph Visualisation
 
@@ -222,6 +241,8 @@ nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),
                nbf.v4.new_markdown_cell(streaming_graph_text),
                nbf.v4.new_code_cell(run_algorithm),
                nbf.v4.new_markdown_cell(streaming_graph_explanation_text),
+               nbf.v4.new_markdown_cell(write_graph_text),
+               nbf.v4.new_code_cell(write_graph),
                nbf.v4.new_markdown_cell(viz_intro_text),
                nbf.v4.new_code_cell(neo_vis_div_cell),
                nbf.v4.new_markdown_cell(python_to_js_text),
