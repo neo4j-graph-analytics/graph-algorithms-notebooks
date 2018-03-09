@@ -180,6 +180,7 @@ neo_vis_div_cell = '''\
 
 neo_vis_js_cell = '''\
 %%javascript
+var output_area = this;
 requirejs(['neovis.js'], function(NeoVis){    
     var config = {
       container_id: "viz",
@@ -200,8 +201,9 @@ requirejs(['neovis.js'], function(NeoVis){
       let command = "image_src = '" + imageSrc + "'";
       kernel.execute(command);
       
-      var nb = Jupyter.notebook;
-      var cell = nb.select_next().get_selected_cell();
+      var cell_element = output_area.element.parents('.cell');
+      var cell_idx = Jupyter.notebook.get_cell_elements().index(cell_element);
+      var cell = Jupyter.notebook.get_cell(cell_idx+1);
       cell.set_text("HTML('<img id=\\"viz-image\\" width=\\"300px\\" src=\\"%s\\" />' % image_src)")
       cell.execute();
     });
