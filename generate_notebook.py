@@ -106,21 +106,23 @@ df''' % streaming_query_content
 
 streaming_graph_explanation_text = find_tag(algorithm_file, explanation_tag)
 
-expand_viz_cell = '''\
-%%html
-<style>
-.output_wrapper, .output {
-    height:auto !important;
-    max-height:600px;
-}
-.output_scroll {
-    box-shadow:none !important;
-    webkit-box-shadow:none !important;
-}
-</style>
-'''
+viz_intro_text = '''## Graph Visualisation
 
-cypher_read_query = "MATCH (p1:Page)-[r:LINKS]->(p2:Page) RETURN *"
+Sometimes a picture can tell more than a table of results and this is often the case with graph algorithms. 
+Let's see how to create a graph visualization using neovis.js.
+
+First we'll create a div into which we will generate the visualisation.'''
+
+python_to_js_text = '''Next we need to define the query that the visualization will be generated from, along with config 
+that describes which properties will be used for node size, node colour, and relationship width. 
+
+We'll then define a JavaScript variable that contains all our parameters.'''
+
+neo_vis_js_text = '''Now we're ready to call neovis.js and generate our graph visualisation. 
+The following code will create an interactive graph into the div defined above.
+It will also extract an image representation of the graph and display that in the cell below.'''
+
+query = "MATCH (p1:Page)-[r:LINKS]->(p2:Page) RETURN *"
 
 labels_json = {
     "Page": {
@@ -136,15 +138,76 @@ relationships_json = {
     }
 }
 
-viz = '''\
-from scripts.vis import generate_vis
+setup_js_graph_cell = '''\
+from IPython.core.display import display, HTML, Javascript
+from string import Template
+import json
 
-query = "%s"
-labels_json = %s
-relationships_json = %s
+query = "MATCH (p1:Page)-[r:LINKS]->(p2:Page) RETURN *"
+labels_json = {'Page': {'caption': 'name', 'size': 'pagerank'}}
+relationships_json = {'LINKS': {'thickness': 'weight', 'caption': False}}
 
-generate_vis(host, user, password, query, labels_json, relationships_json)
-''' % (cypher_read_query, labels_json, relationships_json)
+json_graph = {
+    "query": query,
+    "labels": labels_json,
+    "relationships": relationships_json,
+    "host": host,
+    "user": user,
+    "password": password
+}
+
+Javascript("""window.jsonGraph={};""".format(json.dumps(json_graph)))'''
+
+neo_vis_div_cell = '''\
+%%html
+<style type="text/css">                
+.output_wrapper, .output {
+    height:auto !important;
+    max-height:600px;
+}
+.output_scroll {
+    box-shadow:none !important;
+    webkit-box-shadow:none !important;
+}
+
+#viz {
+    width: 300px;
+    height: 350px;
+    font: 22pt arial;
+}
+</style>  
+<div id="viz"></div>'''
+
+neo_vis_js_cell = '''\
+%%javascript
+requirejs(['neovis.js'], function(NeoVis){    
+    var config = {
+      container_id: "viz",
+      server_url: window.jsonGraph.host,
+      server_user: window.jsonGraph.user,
+      server_password: window.jsonGraph.password,
+      labels: window.jsonGraph.labels,
+      relationships: window.jsonGraph.relationships,
+      initial_cypher: window.jsonGraph.query
+    };
+        
+    let viz = new NeoVis.default(config);
+    viz.render();
+    
+    viz.onVisualizationRendered(function(ctx) {
+      let imageSrc = ctx.canvas.toDataURL();
+      let kernel = IPython.notebook.kernel;
+      let command = "image_src = '" + imageSrc + "'";
+      kernel.execute(command);
+      
+      var nb = Jupyter.notebook;
+      var cell = nb.select_next().get_selected_cell();
+      cell.set_text("HTML('<img id=\\"viz-image\\" width=\\"300px\\" src=\\"%s\\" />' % image_src)")
+      cell.execute();
+    });
+});'''
+
+display_neo_vis_cell = ''''''
 
 nb = nbf.v4.new_notebook()
 nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),
@@ -156,8 +219,13 @@ nb['cells'] = [nbf.v4.new_markdown_cell(heading_text),
                nbf.v4.new_markdown_cell(streaming_graph_text),
                nbf.v4.new_code_cell(run_algorithm),
                nbf.v4.new_markdown_cell(streaming_graph_explanation_text),
-               nbf.v4.new_code_cell(expand_viz_cell),
-               nbf.v4.new_code_cell(viz)
+               nbf.v4.new_markdown_cell(viz_intro_text),
+               nbf.v4.new_code_cell(neo_vis_div_cell),
+               nbf.v4.new_markdown_cell(python_to_js_text),
+               nbf.v4.new_code_cell(setup_js_graph_cell),
+               nbf.v4.new_markdown_cell(neo_vis_js_text),
+               nbf.v4.new_code_cell(neo_vis_js_cell),
+               nbf.v4.new_code_cell(display_neo_vis_cell)
                ]
 
 output_file = 'notebooks/{0}.ipynb'.format(algorithm_name.replace(" ", ""))
