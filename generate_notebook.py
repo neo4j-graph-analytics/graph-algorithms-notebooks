@@ -142,10 +142,12 @@ setup_js_graph_cell = '''\
 from IPython.core.display import display, HTML, Javascript
 from string import Template
 import json
+from scripts.algo import viz_config, render_image
 
-query = "MATCH (p1:Page)-[r:LINKS]->(p2:Page) RETURN *"
-labels_json = {'Page': {'caption': 'name', 'size': 'pagerank'}}
-relationships_json = {'LINKS': {'thickness': 'weight', 'caption': False}}
+config = viz_config("%s")
+query = config["query"]
+labels_json = config["labels_json"]
+relationships_json = config["relationships_json"]
 
 json_graph = {
     "query": query,
@@ -156,7 +158,7 @@ json_graph = {
     "password": password
 }
 
-Javascript("""window.jsonGraph={};""".format(json.dumps(json_graph)))'''
+Javascript("""window.jsonGraph={};""".format(json.dumps(json_graph)))''' % algorithm_name
 
 neo_vis_div_cell = '''\
 %%html
@@ -204,7 +206,7 @@ requirejs(['neovis.js'], function(NeoVis){
       var cell_element = output_area.element.parents('.cell');
       var cell_idx = Jupyter.notebook.get_cell_elements().index(cell_element);
       var cell = Jupyter.notebook.get_cell(cell_idx+1);
-      cell.set_text("HTML('<img id=\\"viz-image\\" width=\\"300px\\" src=\\"%s\\" />' % image_src)")
+      cell.set_text("render_image(image_src)")
       cell.execute();
     });
 });'''
