@@ -5,8 +5,33 @@ def viz_config(algorithm_name):
     return {
         "Page Rank": {
             "query": "MATCH (p1:Page)-[r:LINKS]->(p2:Page) RETURN *",
-            "labels_json": {'Page': {'caption': 'name', 'size': 'pagerank'}},
-            "relationships_json": {'LINKS': {'thickness': 'weight', 'caption': False}}
+            "labels_json": {
+                'Page': {
+                    'caption': 'name',
+                    'size': 'pagerank'
+                }
+            },
+            "relationships_json": {
+                'LINKS': {
+                    'thickness': 'weight',
+                    'caption': False
+                }
+            }
+        },
+        "Betweenness Centrality": {
+            "query": "MATCH (p1:User)-[r:MANAGE]->(p2:User) RETURN *",
+            "labels_json": {
+                'User': {
+                    'caption': 'id',
+                    'size': 'centrality'
+                }
+            },
+            "relationships_json": {
+                'MANAGE': {
+                    'thickness': 'weight',
+                    'caption': False
+                }
+            }
         }
     }[algorithm_name]
 

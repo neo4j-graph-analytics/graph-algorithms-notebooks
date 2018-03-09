@@ -139,8 +139,7 @@ relationships_json = {
 }
 
 setup_js_graph_cell = '''\
-from IPython.core.display import display, HTML, Javascript
-from string import Template
+from IPython.core.display import Javascript
 import json
 from scripts.algo import viz_config, render_image
 
