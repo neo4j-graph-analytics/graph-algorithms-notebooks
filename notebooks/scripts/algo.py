@@ -63,6 +63,21 @@ def viz_config(algorithm_name):
                     'caption': False
                 }
             }
+        },
+        "Strongly Connected Components": {
+            "query": "MATCH (p1:User)-[r:FOLLOW]->(p2:User) RETURN *",
+            "labels_json": {
+                'User': {
+                    'caption': 'id',
+                    'community': 'partition'
+                }
+            },
+            "relationships_json": {
+                'FOLLOW': {
+                    'thickness': 'weight',
+                    'caption': False
+                }
+            }
         }
     }[algorithm_name]
 

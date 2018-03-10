@@ -125,7 +125,8 @@ with driver.session() as session:
     session.write_transaction(lambda tx: tx.run(write_query))''' % write_query_content
 
 
-viz_intro_text = '''## Graph Visualisation
+viz_intro_text = '''\
+## Graph Visualisation
 
 Sometimes a picture can tell more than a table of results and this is often the case with graph algorithms. 
 Let's see how to create a graph visualization using neovis.js.
