@@ -78,6 +78,36 @@ def viz_config(algorithm_name):
                     'caption': False
                 }
             }
+        },
+        "Unweighted Connected Components": {
+            "query": "MATCH (p1:User)-[r:FRIEND]->(p2:User) RETURN *",
+            "labels_json": {
+                'User': {
+                    'caption': 'id',
+                    'community': 'partition'
+                }
+            },
+            "relationships_json": {
+                'FRIEND': {
+                    'thickness': 'weight',
+                    'caption': False
+                }
+            }
+        },
+        "Weighted Connected Components": {
+            "query": "MATCH (p1:User)-[r:FRIEND]->(p2:User) RETURN *",
+            "labels_json": {
+                'User': {
+                    'caption': 'id',
+                    'community': 'partition'
+                }
+            },
+            "relationships_json": {
+                'FRIEND': {
+                    'thickness': 'weight',
+                    'caption': False
+                }
+            }
         }
     }[algorithm_name]
 
