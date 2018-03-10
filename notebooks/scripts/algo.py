@@ -33,6 +33,21 @@ def viz_config(algorithm_name):
                 }
             }
         },
+        "Closeness Centrality": {
+            "query": "MATCH (p1:Node)-[r:LINK]->(p2:Node) RETURN *",
+            "labels_json": {
+                'Node': {
+                    'caption': 'id',
+                    'size': 'centrality'
+                }
+            },
+            "relationships_json": {
+                'LINK': {
+                    'thickness': 'weight',
+                    'caption': False
+                }
+            }
+        },
         "Louvain": {
             "query": "MATCH (p1:User)-[r:FRIEND]->(p2:User) RETURN *",
             "labels_json": {
