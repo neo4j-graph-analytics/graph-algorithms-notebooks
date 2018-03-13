@@ -2,9 +2,15 @@
 
 This repository contains Jupyter Notebooks for each of the https://neo4j-contrib.github.io/neo4j-graph-algorithms/[Neo4j graph algorithms^].
 
-== Setup
 
-Create a virtual environment and install some required libraries.
+* notebooks/AllPairsShortestPath.ipynb[All Pairs Shortest Path^]
+
+== Run the notebooks locally
+
+If we want to run the notebooks locally you'll need to first install some required libraries.
+
+I use https://virtualenv.pypa.io/en/stable/[virtualenv^] but that's just one option.
+We can run the following set of commands to create a Python environment with the libraries installed:
 
 ```
 virtualenv a
@@ -21,3 +27,5 @@ You can override these values with environment variables.
 ```
 NEO4J_HOST="bolt://localhost:7687" NEO4J_USER="neo4j" NEO4J_PASSWORD="neo" jupyter notebook
 ```
+
+Navigate to `http://localhost:8888/notebooks` - the notebooks will be waiting!
