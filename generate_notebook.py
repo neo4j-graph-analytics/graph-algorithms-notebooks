@@ -124,7 +124,6 @@ write_query = """\
 with driver.session() as session:
     session.write_transaction(lambda tx: tx.run(write_query))''' % write_query_content
 
-
 viz_intro_text = '''\
 ## Graph Visualisation
 

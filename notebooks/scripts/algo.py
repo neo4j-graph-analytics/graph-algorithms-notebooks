@@ -48,6 +48,21 @@ def viz_config(algorithm_name):
                 }
             }
         },
+        "Degree Centrality": {
+            "query": "MATCH (p1:User)-[r:FOLLOWS]->(p2:User) RETURN *",
+            "labels_json": {
+                'User': {
+                    'caption': 'id',
+                    'size': 'followers'
+                }
+            },
+            "relationships_json": {
+                'FOLLOWS': {
+                    'thickness': 'weight',
+                    'caption': False
+                }
+            }
+        },
         "Louvain": {
             "query": "MATCH (p1:User)-[r:FRIEND]->(p2:User) RETURN *",
             "labels_json": {
@@ -104,6 +119,21 @@ def viz_config(algorithm_name):
             },
             "relationships_json": {
                 'FRIEND': {
+                    'thickness': 'weight',
+                    'caption': False
+                }
+            }
+        },
+        "Label Propagation": {
+            "query": "MATCH (p1:User)-[r:FOLLOW]->(p2:User) RETURN *",
+            "labels_json": {
+                'User': {
+                    'caption': 'id',
+                    'community': 'partition'
+                }
+            },
+            "relationships_json": {
+                'FOLLOW': {
                     'thickness': 'weight',
                     'caption': False
                 }

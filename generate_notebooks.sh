@@ -22,6 +22,11 @@ python generate_notebook.py \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/closeness-centrality.cypher"
 
 python generate_notebook.py \
+    "Degree Centrality" \
+    "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/degree-centrality.adoc" \
+    "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/degree-centrality.cypher"
+
+python generate_notebook.py \
     "Unweighted Connected Components" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/connected-components.adoc" \
     "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/connected-components.cypher" \
@@ -36,6 +41,11 @@ python generate_notebook.py \
     "weighted-stream-sample-graph" \
     "weighted-stream-sample-graph-explanation" \
     "weighted-write-sample-graph"
+
+python generate_notebook.py \
+    "Label Propagation" \
+    "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/label-propagation.adoc" \
+    "https://github.com/neo4j-contrib/neo4j-graph-algorithms/raw/3.2/doc/asciidoc/scripts/label-propagation.cypher"
 
 python generate_notebook.py \
     "Strongly Connected Components" \
