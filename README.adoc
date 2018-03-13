@@ -25,7 +25,9 @@ This repository contains Jupyter Notebooks for each of the https://neo4j-contrib
 
 == Run the notebooks locally
 
-If we want to run the notebooks locally you'll need to first install some required libraries.
+If we want to run the notebooks locally we need to setup Python and Neo4j environments.
+
+=== Python
 
 I use https://virtualenv.pypa.io/en/stable/[virtualenv^] but that's just one option.
 We can run the following set of commands to create a Python environment with the libraries installed:
@@ -36,11 +38,22 @@ virtualenv a
 pip install -r requirements.txt
 ```
 
+=== Neo4j
+
+We'll also need to have a Neo4j server, with the Graph Algorithms library installed, running locally.
+The easiest way to do this is to download the Neo4j Desktop from http://neo4j.com/download[neo4j.com/download^].
+
+Once we've done that we can create a project and then install Graph Algorithms from the Plugins section.
+
+image::images/installation.png[]
+
+
+=== Launching Jupyter
+
 We're now ready to launch the Jupyter server.
 
 The notebooks assume that there's a Neo4j server running at `localhost:7687` with username `neo4j` and password `neo`.
 You can override these values with environment variables.
-
 
 ```
 NEO4J_HOST="bolt://localhost:7687" NEO4J_USER="neo4j" NEO4J_PASSWORD="neo" jupyter notebook
