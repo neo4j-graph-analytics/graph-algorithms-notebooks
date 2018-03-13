@@ -46,4 +46,4 @@ You can override these values with environment variables.
 NEO4J_HOST="bolt://localhost:7687" NEO4J_USER="neo4j" NEO4J_PASSWORD="neo" jupyter notebook
 ```
 
-Navigate to `http://localhost:8888/notebooks` - the notebooks will be waiting!
+Navigate to http://localhost:8888/notebooks - the notebooks will be waiting!
