@@ -3,7 +3,25 @@
 This repository contains Jupyter Notebooks for each of the https://neo4j-contrib.github.io/neo4j-graph-algorithms/[Neo4j graph algorithms^].
 
 
+== Path finding
+
 * link:notebooks/AllPairsShortestPath.ipynb[All Pairs Shortest Path^]
+* link:notebooks/SingleSourceShortestPath.ipynb[Single Source Shortest Path^]
+
+== Centrality
+
+* link:notebooks/DegreeCentrality.ipynb[Degree Centrality^]
+* link:notebooks/ClosenessCentrality.ipynb[Closeness Centrality^]
+* link:notebooks/BetweennessCentrality.ipynb[Betweenness Centrality^]
+
+== Community Detection
+
+* link:notebooks/StronglyConnectedComponents.ipynb[Strongly Connected Components^]
+* link:notebooks/WeightedConnectedComponents.ipynb[Weighted Union Find^]
+* link:notebooks/UnweightedConnectedComponents.ipynb[Unweighted Union Find^]
+* link:notebooks/LabelPropagation.ipynb[Label Propagation^]
+* link:notebooks/Louvain.ipynb[Louvain^]
+* link:notebooks/TriangleCounting.ipynb[Triangle Counting^]
 
 == Run the notebooks locally
 
