@@ -3,7 +3,7 @@
 This repository contains Jupyter Notebooks for each of the https://neo4j-contrib.github.io/neo4j-graph-algorithms/[Neo4j graph algorithms^].
 
 
-* notebooks/AllPairsShortestPath.ipynb[All Pairs Shortest Path^]
+* link:notebooks/AllPairsShortestPath.ipynb[All Pairs Shortest Path^]
 
 == Run the notebooks locally
 
