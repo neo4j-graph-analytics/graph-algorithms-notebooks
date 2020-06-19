@@ -1,6 +1,6 @@
-= Neo4j Graph Algorithms Jupyter Notebooks
+= Neo4j Graph Data Science Jupyter Notebooks
 
-This repository contains Jupyter Notebooks for each of the https://neo4j-contrib.github.io/neo4j-graph-algorithms/[Neo4j graph algorithms^].
+This repository contains Jupyter Notebooks for each of the https://neo4j.com/docs/graph-data-science/current/[Neo4j graph algorithms^].
 
 
 == Path finding
@@ -40,10 +40,10 @@ pip install -r requirements.txt
 
 === Neo4j
 
-We'll also need to have a Neo4j server, with the Graph Algorithms library installed, running locally.
+We'll also need to have a Neo4j server, with the Graph Data Science library installed, running locally.
 The easiest way to do this is to download the Neo4j Desktop from http://neo4j.com/download[neo4j.com/download^].
 
-Once we've done that we can create a project and then install Graph Algorithms from the Plugins section.
+Once we've done that we can create a project and then install Graph Data Science from the Plugins section.
 
 image::images/installation.png[]
 
